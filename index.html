@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Skrypt GSA 2026: pełny kurs, atlas ćwiczeń, testy funkcjonalne i quiz anatomii." />
+    <meta name="theme-color" content="#18384a" />
+    <title>Pracownia trenera · GSA i atlas mięśni</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2318384a'/%3E%3Cpath d='M16 6c-5 4-7 9-6 14 1 4 3 6 6 6s5-2 6-6c1-5-1-10-6-14z' fill='%23e56f59'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./learning.css" />
+    <script type="module" src="./src/app.js"></script>
+    <script type="module" src="./src/learning/app.js"></script>
+  </head>
+  <body data-section="kurs">
+    <a class="skip-link" href="#panel">Przejdź do pytania</a>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <p class="brand"><span class="brand__mark" aria-hidden="true"></span><span class="brand__title">Pracownia&nbsp;trenera</span><span class="brand__sub">nauka i praktyka</span></p>
+        <p class="topbar__stats" id="topbar-stats" aria-live="off"></p>
+      </div>
+    </header>
+
+    <nav class="app-nav" aria-label="Główna nawigacja">
+      <div class="app-nav__inner">
+        <a href="#kurs" data-section="kurs">Skrypt GSA</a>
+        <a href="#cwiczenia" data-section="cwiczenia">Atlas ćwiczeń</a>
+        <a href="#testy" data-section="testy">Testy funkcjonalne</a>
+        <a href="#atlas" data-section="atlas">Atlas mięśni</a>
+        <a href="#quiz" data-section="quiz">Quiz mięśni</a>
+      </div>
+    </nav>
+    <main id="learning" class="learning" tabindex="-1"><p>Wczytywanie biblioteki…</p></main>
+    <main class="layout" id="quiz-root" hidden>
+      <section class="plate" aria-label="Tablica anatomiczna">
+        <div class="plate__frame">
+          <div class="plate__head">
+            <span class="plate__number" id="plate-number">Tab. —</span>
+            <span class="plate__view" id="plate-view"></span>
+          </div>
+          <figure class="plate__figure">
+            <div class="plate__svg" id="plate-svg" role="img" aria-label="Tablica anatomiczna"></div>
+            <figcaption class="plate__caption">
+              <p class="plate__layer" id="plate-layer"></p>
+              <p class="plate__answer" id="plate-answer" hidden></p>
+              <ul class="legend" aria-label="Legenda">
+                <li><span class="swatch swatch--target" aria-hidden="true"></span>szukany mięsień</li>
+                <li><span class="swatch swatch--context" aria-hidden="true"></span>mięśnie kontekstowe</li>
+                <li><span class="swatch swatch--ghost" aria-hidden="true"></span>zarys usuniętej warstwy</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="panel" id="panel" tabindex="-1" aria-label="Quiz"></section>
+    </main>
+
+    <footer class="footer" id="quiz-footer" hidden>
+      <p>Treści merytoryczne: <cite>Atlas anatomii funkcjonalnej. Anatomia w praktyce trenera</cite> (numery stron według pliku PDF). Ryciny to schematyczne ilustracje SVG przygotowane na potrzeby quizu.</p>
+    </footer>
+    <noscript><p class="noscript">Quiz wymaga włączonej obsługi JavaScript.</p></noscript>
+  </body>
+</html>

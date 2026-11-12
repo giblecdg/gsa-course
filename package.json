@@ -1,0 +1,17 @@
+{
+  "name": "anatomia-quiz",
+  "version": "2.0.0",
+  "description": "Kurs trenera GSA: skrypt, atlas ćwiczeń, testy funkcjonalne i quiz anatomii.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.js 5173",
+    "start": "node scripts/serve.js",
+    "test": "node --test tests/*.test.js",
+    "plates": "node scripts/export-plates.js plates"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
