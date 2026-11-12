@@ -37,3 +37,21 @@ Chromium, aplikacja uruchomiona przez `npm start` na http://127.0.0.1:5173/.
 Obejrzano stronę kursu, czytnik, kartę RDL, poradnik Patricka/FABER i układ mobilny. Ilustracje pozycji pochodzą z oryginalnego skryptu; ryciny mięśni są schematyczne. W grupach mięśni podpis wskazuje faktycznie zaznaczonego reprezentanta. Część struktur głębokich jest opisana tekstowo, bez osobnej ryciny. Testy techniczne nie stanowią niezależnej recenzji anatomicznej ani walidacji klinicznej poradników.
 
 Testy przeglądarkowe przeprowadzono oddzielnie przy użyciu Playwright; `npm test` uruchamia testy Node, bez instalacji przeglądarki.
+
+## Aktualizacja 12 listopada 2026 – quiz ćwiczeń
+
+`npm test`: **261 testów zaliczonych, 0 błędów**. Dodane przypadki obejmują pełny i podstawowy zakres odpowiedzi, brak duplikatów, wyłączenie rozciągania z klucza, ocenę trafień/pominięć/nadmiaru, blokadę powtórnego naliczenia, filtrowanie, zapis błędów osobno dla zakresów oraz zachowanie wcześniejszych kluczy wyników i notatek.
+
+Nowy test Chromium sprawdził:
+
+- sesję czterech dodatkowych ćwiczeń w zakresie główne/pomocnicze, w tym celowo błędny zestaw;
+- prawidłowe oznaczenie pominięć i nadmiaru oraz brak ujawnienia rycin z odpowiedzią przed sprawdzeniem;
+- zapis błędu po odświeżeniu, prawidłową powtórkę i usunięcie błędu;
+- pełną sesję 28 ćwiczeń ze stabilizatorami, bez powtórzeń i z wynikiem 28/28;
+- cztery nowe karty atlasu, działające schematy i źródła uzupełnienia;
+- 66 kart w katalogu i filtrowanie seated cable row;
+- układ mobilny 390 px przed i po odpowiedzi, sześć pozycji nawigacji, brak poziomego przewijania;
+- działanie poprzedniego quizu mięśni po przełączeniu zakładki;
+- brak błędów JavaScript i odpowiedzi HTTP 4xx/5xx.
+
+Powtórzono również test całej wcześniejszej biblioteki: 5 modułów, 26 rozdziałów, 131. strona, wszystkie 66 kart ćwiczeń i ich podglądy mięśni, 9 poradników, notatki, zapisane ćwiczenia i stary quiz. Przeszedł bez błędów.

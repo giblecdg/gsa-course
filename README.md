@@ -43,3 +43,17 @@ Wszystko działa lokalnie, bez konta i bez wysyłania notatek na serwer. Wyniki 
 - `tests/` – testy quizu, zapisu postępu, kursu i integralności zasobów.
 
 Projekt działa lokalnie. Nie został opublikowany w internecie.
+
+## Nowość: quiz ćwiczeń (wersja 2.1)
+
+Zakładka **Quiz ćwiczeń** (`#quiz-cwiczen`) pokazuje wykonanie ćwiczenia, a następnie prosi o zaznaczenie kilku nazw mięśni. Odpowiedzi są tasowane. Przycisk **Sprawdź zestaw** blokuje odpowiedź i wyróżnia trafienia, pominięcia oraz zaznaczenia poza kluczem. Sylwetka z podświetlonym mięśniem jest dostępna dopiero po ocenie.
+
+- Pula: **28 aktywnych ćwiczeń siłowych i wariantów**. Mobilizacje pozostają w atlasie, ale nie są oceniane jako ćwiczenia angażujące główne mięśnie ruchu.
+- Dwa zakresy: **główne i pomocnicze** oraz **także stabilizujące**. Klucz dotyczy ról opisanych w karcie, a nie każdej możliwej aktywności mięśniowej. Stabilizatory nie są fałszywymi odpowiedziami w pierwszym zakresie.
+- Wynik całego zestawu wymaga wszystkich poprawnych odpowiedzi i braku nadmiarowych. Wynik częściowy uwzględnia trafienia, pominięcia oraz nadmiarowe zaznaczenia; zaznaczenie wszystkich opcji nie daje pełnego wyniku.
+- Osobne powtórki błędów dla dwóch zakresów; poprawna powtórka usuwa dany błąd. Statystyki zapisują się w `exercise-muscles-quiz:v1` bez zmiany starszych wyników i notatek.
+- Filtry: okolica ciała i **Twoje 4 ćwiczenia**; długość sesji 5, 10, 20 lub cała dostępna pula.
+
+Do atlasu (łącznie **66 kart**) i nowego quizu dodano: seated cable row z chwytem neutralnym, rozpiętki z hantlami na ławce poziomej, podciąganie nachwytem oraz suwnicę 45°. Warianty opisano jawnie; suwnica oznacza leg press, nie maszynę Smitha. Cztery dodatkowe ćwiczenia mają własne schematy ruchu SVG oraz odnośniki do źródeł. Są uzupełnieniem skryptu, a nie materiałem przypisanym GSA.
+
+Dodatkowe pliki: `src/data/exercises.js` łączy starą bazę z uzupełnieniami; `src/exercise-quiz/` odpowiada za logikę i interfejs nowego quizu, a `assets/exercises/` zawiera cztery schematy ruchu.

@@ -1,7 +1,7 @@
 {
   "name": "anatomia-quiz",
-  "version": "2.0.0",
-  "description": "Kurs trenera GSA: skrypt, atlas ćwiczeń, testy funkcjonalne i quiz anatomii.",
+  "version": "2.1.0",
+  "description": "Kurs GSA, atlas 66 ćwiczeń, testy funkcjonalne oraz quizy mięśni i ćwiczeń.",
   "private": true,
   "type": "module",
   "scripts": {
