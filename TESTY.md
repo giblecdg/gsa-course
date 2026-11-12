@@ -55,3 +55,11 @@ Nowy test Chromium sprawdził:
 - brak błędów JavaScript i odpowiedzi HTTP 4xx/5xx.
 
 Powtórzono również test całej wcześniejszej biblioteki: 5 modułów, 26 rozdziałów, 131. strona, wszystkie 66 kart ćwiczeń i ich podglądy mięśni, 9 poradników, notatki, zapisane ćwiczenia i stary quiz. Przeszedł bez błędów.
+
+## Aktualizacja: wszystkie 66 ćwiczeń w quizie (wersja 2.2)
+
+`npm test`: 262 zaliczone, 0 błędów. Sprawdzenie składni wszystkich modułów JavaScript i `git diff --check` zakończyły się poprawnie. Wszystkie 240 zasobów stron/ilustracji GSA, cztery schematy nowych ćwiczeń i pełny tekst są śledzone w Git.
+
+Test Chromium przeszedł pełną sesję 66 ćwiczeń w zakresie podstawowym oraz 66 w zakresie ze stabilizatorami (132 poprawne zestawy). Sprawdził role rozciągania w mobility, klucze mięśni bez odrębnej ryciny, filtry 66/28/38, filtr okolicy ciała, zapis wyniku po odświeżeniu i układ mobilny 390 px. Nie wystąpiły błędy JavaScript ani HTTP.
+
+W repozytorium dodano automatyczny workflow uruchamiający testy i sprawdzanie składni przy pushach i pull requestach. Wynik kontroli zdalnej jest dostępny w GitHub Actions.

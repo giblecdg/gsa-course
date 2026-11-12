@@ -3,10 +3,10 @@ export const QUIZ_KEY='exercise-muscles-quiz:v1';
 export const ROLES={ruch:['główny','pomocniczy'],pelny:['główny','pomocniczy','stabilizacja']};
 export const muscleKey=m=>m.id||`name:${m.name}`;
 export function requiredMuscles(exercise,scope='ruch'){
- const roles=ROLES[scope]||ROLES.ruch;
+ const roles=[...(ROLES[scope]||ROLES.ruch),...(exercise.kind==='mobility'?['rozciągany']:[])];
  return [...new Map(exercise.muscles.filter(m=>roles.includes(m.role)).map(m=>[muscleKey(m),m])).values()];
 }
-export function eligibleExercises(exercises){return exercises.filter(e=>e.kind!=='mobility'&&requiredMuscles(e).length);}
+export function eligibleExercises(exercises,category='all'){return exercises.filter(e=>(category==='all'||(category==='mobility'?e.kind==='mobility':e.kind!=='mobility'))&&requiredMuscles(e).length);}
 export function musclePool(exercises){
  const pool=new Map();
  for(const e of eligibleExercises(exercises))for(const m of e.muscles){
@@ -23,9 +23,9 @@ export function buildQuestion(exercise,exercises,scope='ruch',rng=Math.random){
  const options=shuffle([...pool.filter(m=>correct.includes(m.key)),...wrong],rng);
  return {exerciseId:exercise.id,correct,options};
 }
-export function createExerciseSession(exercises,{scope='ruch',length=10,region='',onlyOwn=false,onlyIds=null,rng=Math.random}={}){
+export function createExerciseSession(exercises,{scope='ruch',length=10,region='',onlyOwn=false,category='all',onlyIds=null,rng=Math.random}={}){
  const safeScope=ROLES[scope]?scope:'ruch';
- const pool=eligibleExercises(exercises).filter(e=>(!region||e.region===region)&&(!onlyOwn||e.origin==='twoje')&&(!onlyIds||onlyIds.includes(e.id)));
+ const pool=eligibleExercises(exercises,category).filter(e=>(!region||e.region===region)&&(!onlyOwn||e.origin==='twoje')&&(!onlyIds||onlyIds.includes(e.id)));
  const shuffled=shuffle(pool,rng);const picked=length>0?shuffled.slice(0,length):shuffled;
  return {scope:safeScope,items:picked.map(e=>buildQuestion(e,exercises,safeScope,rng)),index:0,answers:picked.map(()=>null),finished:picked.length===0};
 }

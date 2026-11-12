@@ -7,11 +7,13 @@ import {QUIZ_KEY,eligibleExercises,requiredMuscles,createExerciseSession,buildQu
 const ids=new Set(QUESTIONS.map(q=>q.id));
 test('cztery ćwiczenia użytkownika mają schematy, instrukcje i istniejące mięśnie',()=>{
  assert.deepEqual(EXTRA_EXERCISES.map(e=>e.id),['seated-cable-row','dumbbell-fly','pull-up-overhand','leg-press-45']);
- assert.equal(EXERCISES.length,66);assert.equal(eligibleExercises(EXERCISES).length,28);
+ assert.equal(EXERCISES.length,66);assert.equal(eligibleExercises(EXERCISES).length,66);
  for(const e of EXTRA_EXERCISES){assert(existsSync(new URL('../'+e.image,import.meta.url)));assert(e.steps.length>=3);assert(e.sources.length);assert(e.muscles.every(m=>ids.has(m.id)&&m.name));assert.equal(e.origin,'twoje');}
 });
-test('quiz pomija mobility i mięśnie jedynie rozciągane',()=>{
- const items=createExerciseSession(EXERCISES,{length:0}).items;assert(items.every(q=>EXERCISES.find(e=>e.id===q.exerciseId).kind!=='mobility'));
+test('quiz obejmuje mobility, a rozciąganie rozróżnia od pracy siłowej',()=>{
+ const items=createExerciseSession(EXERCISES,{length:0}).items;assert.equal(items.length,66);assert(items.some(q=>EXERCISES.find(e=>e.id===q.exerciseId).kind==='mobility'));
+ const stretch=EXERCISES.find(e=>e.id==='hamstring-pir');assert.equal(requiredMuscles(stretch).length,1);assert.equal(requiredMuscles(stretch)[0].role,'rozciągany');
+ assert.equal(eligibleExercises(EXERCISES,'strength').length,28);assert.equal(eligibleExercises(EXERCISES,'mobility').length,38);
  const bulgarian=EXERCISES.find(e=>e.id==='bulgarian-split-squat');assert(requiredMuscles(bulgarian,'pelny').every(m=>m.role!=='rozciągany'));
 });
 test('pytania: poprawne nazwy bez duplikatów, trzy dystraktory, rola stabilizacyjna nie jest błędem w prostym zakresie',()=>{
@@ -22,7 +24,7 @@ test('pytania: poprawne nazwy bez duplikatów, trzy dystraktory, rola stabilizac
  }
 });
 test('losowanie i filtry dają sesję bez powtórzeń, także dla własnych ćwiczeń i pustego zestawu',()=>{
- const full=createExerciseSession(EXERCISES,{length:0});assert.equal(new Set(full.items.map(q=>q.exerciseId)).size,28);
+ const full=createExerciseSession(EXERCISES,{length:0});assert.equal(new Set(full.items.map(q=>q.exerciseId)).size,66);
  const own=createExerciseSession(EXERCISES,{onlyOwn:true,length:10});assert.equal(own.items.length,4);assert(own.items.every(q=>EXTRA_EXERCISES.some(e=>e.id===q.exerciseId)));
  const lower=createExerciseSession(EXERCISES,{onlyOwn:true,region:'Dół ciała'});assert.equal(lower.items.length,1);assert.equal(lower.items[0].exerciseId,'leg-press-45');
  assert.equal(createExerciseSession(EXERCISES,{onlyIds:[]}).finished,true);
@@ -48,3 +50,10 @@ test('zapis nowego quizu nie zmienia starego quizu ani notatek; uszkodzony zapis
  assert(data.has(QUIZ_KEY));assert.equal(saveExerciseProgress(null,p),false);assert.deepEqual(loadExerciseProgress({getItem:()=>'{bad'}),emptyExerciseProgress());
  const clean=loadExerciseProgress({getItem:()=>JSON.stringify({...p,answered:-5,perfect:99,mistakes:{ruch:['deadlift','deadlift','old']}})},new Set(['deadlift']));assert.equal(clean.answered,0);assert.equal(clean.perfect,0);assert.deepEqual(clean.mistakes.ruch,['deadlift']);assert.deepEqual(clean.mistakes.pelny,[]);
 });
+
+ test('pełna sesja mobility rozpoznaje także mięśnie bez osobnego identyfikatora ryciny',()=>{
+  let s=createExerciseSession(EXERCISES,{category:'mobility',length:0});assert.equal(s.items.length,38);
+  assert(s.items.some(q=>q.correct.some(k=>k.startsWith('name:'))));
+  for(let i=0;i<38;i++){const q=s.items[s.index];const r=submitSelection(s,q.correct);assert(r.accepted);assert(r.result.perfect);s=advanceExercise(r.session);}
+  assert(s.finished);assert.equal(exerciseScore(s).perfect,38);
+ });
